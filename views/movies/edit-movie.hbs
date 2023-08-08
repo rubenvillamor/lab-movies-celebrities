@@ -19,7 +19,7 @@
 
   <div class="mb-3">
     <label for="cast" class="form-label">Cast</label>
-    <select name="cast" multiple>
+    <select class="form-select"  name="cast" multiple>
         {{#each this.allCelebrities}}
         <option value="{{this._id}}">{{this.name}}</option>
         {{/each}}
