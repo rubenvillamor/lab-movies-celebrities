@@ -92,4 +92,55 @@ router.post("/:movieId/delete", async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/:movieId/edit", async (req, res, next) => {
+  try {
+    
+    const response = await Movie.findById(req.params.movieId)
+    const allCelebrities = await Celebrity.find().select({name: 1})
+
+    const cloneAllCelebrities = JSON.parse( JSON.stringify(allCelebrities) )
+    // clonamos el arr porque los array de documentos, mongo a veces no nos permite modificarlos
+
+    console.log(response)
+    cloneAllCelebrities.forEach((eachCelebrity) => {
+      if (response.cast.toString() === eachCelebrity._id.toString()) {
+        console.log("el seleccionado es:", eachCelebrity)
+        eachCelebrity.isSelected = true;
+      }
+    })
+    console.log(cloneAllCelebrities)
+
+    res.render("movies/edit-movie.hbs", {
+      oneMovie: response,
+      allCelebrities: cloneAllCelebrities
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post("/:movieId/edit", (req, res, next) => {
+
+  const movieId = req.params.movieId; // o hacer destructuracion
+  const { title, genre, plot, cast } = req.body
+
+  Movie.findByIdAndUpdate(movieId, {  
+    title: title,
+    genre: genre,
+    plot: plot,
+    cast: cast
+  })
+  .then(() => {
+    res.redirect("/movies")
+  })
+  .catch((error) => {
+    next(error)
+  })
+
+})
+
+
+
+
 module.exports = router;

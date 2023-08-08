@@ -1,0 +1,34 @@
+<h2>Update a movie</h2>
+
+<form action="/movies/{{this.oneMovie._id}}/edit" method="post">
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input class="form-control" type="text" name="title" value="{{this.oneMovie.title}}" />
+  </div>
+
+  <div class="mb-3">
+    <label for="genre" class="form-label">Genre</label>
+    <input class="form-control" type="text" name="genre" value="{{this.oneMovie.genre}}" />
+  </div>
+
+  <div class="mb-3">
+    <label for="plot" class="form-label">Plot</label>
+    <input class="form-control" type="text" name="plot" value="{{this.oneMovie.plot}}" />
+  </div>
+
+  <div class="mb-3">
+    <label for="cast" class="form-label">Cast</label>
+    <select name="cast" multiple>
+        {{#each this.allCelebrities}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+         
+        
+  </div>
+
+  <br />
+  <button class="btn btn-primary">Update</button>
+
+</form>
