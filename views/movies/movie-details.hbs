@@ -1,0 +1,26 @@
+ <h2>Movie details</h2>
+
+ <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"> {{this.movieDetails.title}}</h5>
+    <p class="card-text"><ul>
+    {{#each this.movieDetails.cast}}
+     <li>Cast: {{this.name}}, occupation: {{this.occupation}} and CatchPhrase {{this.catchPhrase}}</li>
+    {{/each}}
+   </ul>
+    <p>Genre: {{this.movieDetails.genre}}</p>
+    <p>Plot: {{this.movieDetails.plot}}</p>
+
+    <div class="d-flex justify-content-center gap">
+<a href="/movies/{{this.movieDetails._id}}/update">
+    <button class="btn btn-warning">Update movie</button></a></p>
+
+    <br>
+
+    <form action="/movies/{{this.movieDetails._id}}/delete" method="post">
+        <button class="btn btn-danger">Delete movie</button>
+    </form>
+    </div>
+    
+  </div>
+</div>
