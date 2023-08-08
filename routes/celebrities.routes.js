@@ -44,4 +44,17 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+// get /celebrities listar todas
+router.get("/", async (req, res, next) => {
+try {
+  const response = await Celebrity.find()
+  
+  res.render("./celebrities/celebrities.hbs",{
+    allCelebrities : response
+  })
+} catch (error) {
+  next(error)
+}
+} )
+
 module.exports = router;
